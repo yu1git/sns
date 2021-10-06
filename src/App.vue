@@ -1,26 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="continer mx-auto mt-4" style="width:400px">
+    <Form v-on:up-event="upmessage"  />
+    <Tweet v-bind:uptweet="tweet">
+
+    </Tweet>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Form from './components/Form.vue'
+import Tweet from './components/Tweet.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Form,
+    Tweet
+  },
+  
+  data(){
+    return{
+      tweet:[{
+        tweet_1:{
+          id:1,
+          m:'まだツイートはありません',
+          user:{
+            user_id:'test_user',
+            user_name:'test'
+          }
+        }
+      },],
+      //数字分Tweetが増える→中の数も変わってしまうので、tweetを配列にする→slotでやる
+      count:0
+    }
+  },
+  methods: {
+    upmessage(message){
+      this.$set(this.tweet,message);
+      this.count++;
+      console.log(this.tweet)
+    }
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
